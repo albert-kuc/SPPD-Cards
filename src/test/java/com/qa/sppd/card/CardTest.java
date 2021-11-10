@@ -1,4 +1,4 @@
-package com.qa.main.card;
+package com.qa.sppd.card;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
