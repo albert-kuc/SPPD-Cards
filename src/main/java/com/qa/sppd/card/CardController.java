@@ -1,5 +1,7 @@
 package com.qa.sppd.card;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -17,30 +19,31 @@ public class CardController {
     }
 
     @PostMapping(path="create")
-    public Card createCard(@RequestBody Card newCard) {
+    public ResponseEntity<Card> createCard(@RequestBody Card newCard) {
 
         this.cards.add(newCard);
-        return this.cards.get(this.cards.size() - 1);
+        return new ResponseEntity<>(this.cards.get(this.cards.size() - 1), HttpStatus.CREATED);
     }
 
     @GetMapping(path="getAll")
-    public List<Card> getAllCards() {
-        return this.cards;
+    public ResponseEntity<List<Card>> getAllCards() {
+        return ResponseEntity.ok(this.cards);
     }
 
     @GetMapping(path="get/{idx}")
-    public Card getCardByIndex(@PathVariable Integer idx) {
-        return this.cards.get(idx);
+    public ResponseEntity<Card> getCardByIndex(@PathVariable Integer idx) {
+        return ResponseEntity.ok(this.cards.get(idx));
     }
 
     @PutMapping(path="replace/{idx}")
-    public Card replaceCard(@PathVariable Integer idx, @RequestBody Card newCard) {
+    public ResponseEntity<Card> replaceCard(@PathVariable Integer idx, @RequestBody Card newCard) {
         this.cards.set(idx, newCard);
-        return this.cards.get(idx);
+        return new ResponseEntity<>(this.cards.get(idx), HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping(path="remove/{idx}")
-    public void removeCard(@PathVariable int idx) {
+    public ResponseEntity<?> removeCard(@PathVariable int idx) {
         this.cards.remove(idx);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
