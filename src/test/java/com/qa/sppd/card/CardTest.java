@@ -1,4 +1,4 @@
-package com.qa.card;
+package com.qa.sppd.card;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -75,7 +75,7 @@ public class CardTest {
     }
 
     @Test
-    public void getRariry_TEST() {
+    public void getRarity_TEST() {
         assertEquals("legendary", object.getRarity());
     }
 
