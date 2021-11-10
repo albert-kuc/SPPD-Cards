@@ -1,7 +1,6 @@
 package com.qa.main;
 
-import com.qa.card.Card;
-import org.springframework.boot.SpringApplication;
+import com.qa.main.card.Card;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
