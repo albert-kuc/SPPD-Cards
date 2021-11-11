@@ -1,39 +1,47 @@
 package com.qa.sppd.card;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class CardService {
 
-    private final List<Card> cards = new ArrayList<>();
+    private final CardRepository cardRepository;
 
-    public ResponseEntity<Card> createCard(Card newCard) {
-
-        this.cards.add(newCard);
-        return new ResponseEntity<>(this.cards.get(this.cards.size() - 1), HttpStatus.CREATED);
+    @Autowired
+    public CardService(CardRepository cardRepository) {
+        this.cardRepository = cardRepository;
     }
 
-    public ResponseEntity<List<Card>> getAllCards() {
-        return ResponseEntity.ok(this.cards);
+    public Card createCard(Card newCard) {
+        return this.cardRepository.save(newCard);
     }
 
-    public ResponseEntity<Card> getCardByIndex(Integer idx) {
-        return ResponseEntity.ok(this.cards.get(idx));
+    public List<Card> getAllCards() {
+        return this.cardRepository.findAll();
     }
 
-    public ResponseEntity<Card> replaceCard(Integer idx, Card newCard) {
-        this.cards.set(idx, newCard);
-        return new ResponseEntity<>(this.cards.get(idx), HttpStatus.ACCEPTED);
+    public Card getCardByIndex(Integer idx) {
+        return this.cardRepository.getById(idx);
     }
 
-    public ResponseEntity<?> removeCard(int idx) {
-        this.cards.remove(idx);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    public Card replaceCard(Integer idx, Card newCard) {
+        Card existing = this.getCardByIndex(idx);
+
+        existing.setName(newCard.getName());
+        existing.setTheme(newCard.getTheme());
+        existing.setClassType(newCard.getClassType());
+        existing.setRarity(newCard.getRarity());
+        existing.setCost(newCard.getCost());
+
+        return this.cardRepository.save(existing);
+    }
+
+    public boolean removeCard(int idx) {
+        this.cardRepository.deleteById(idx);
+        return this.cardRepository.existsById(idx);
     }
 
 }
