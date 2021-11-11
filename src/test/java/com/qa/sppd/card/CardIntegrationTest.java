@@ -1,6 +1,5 @@
 package com.qa.sppd.card;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,6 +69,49 @@ public class CardIntegrationTest {
         final String responseBody = this.mapper.writeValueAsString(
                 new Card(1,  "Visitors", "sci-fi", "ranged", "rare", 3));
         this.mvc.perform(get("/card/get/1")).andExpect(status().isOk()).andExpect(content().json(responseBody));
+    }
+
+    @Test
+    void getByIndexNotFound_TEST() throws Exception {
+        int tempIndex = 999999;
+        this.mvc.perform(get("/card/get/" + tempIndex))
+                .andExpect(status().isBadRequest())
+                .andExpect(content().string("No card exists at index: " + tempIndex));
+    }
+
+    @Test
+    void replaceByIndex_TEST() throws Exception {
+        final String responseBody = this.mapper.writeValueAsString(
+                new Card(1, "Mr Mackey", "neutral", "fighter", "common", 4));
+
+        RequestBuilder request = put("/card/replace/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(responseBody);
+
+        ResultMatcher checkStatus = status().isAccepted();
+        ResultMatcher checkBody = content().json(responseBody);
+
+        this.mvc.perform(request).andExpect(checkStatus).andExpect(checkBody);
+    }
+
+    @Test
+    void replaceByIndexNotFound_TEST() throws Exception {
+        int tempIndex = 999999;
+
+        final String requestBody = this.mapper.writeValueAsString(
+                new Card(1, "Mr Mackey", "neutral", "fighter", "common", 4));
+        RequestBuilder request = put("/card/replace/" + tempIndex)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestBody);
+
+        this.mvc.perform(request)
+                .andExpect(status().isBadRequest())
+                .andExpect(content().string("No card exists at index: " + tempIndex));
+    }
+
+    @Test
+    void removeByIndex_TEST() throws Exception {
+        this.mvc.perform(delete("/card/remove/1")).andExpect(status().isNoContent());
     }
 
 }
