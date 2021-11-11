@@ -60,7 +60,7 @@ public class CardService {
 
     public boolean removeCard(int idx) {
         this.cardRepository.deleteById(idx);
-        return this.cardRepository.existsById(idx);
+        return !this.cardRepository.existsById(idx);
     }
 
 }
