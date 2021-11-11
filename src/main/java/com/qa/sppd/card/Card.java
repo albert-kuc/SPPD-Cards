@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Card {
 
-    private Long id;
+    private Integer id;
     private String name;
     private String theme;
     private String classType;
@@ -16,7 +16,7 @@ public class Card {
     public Card() {
     }
 
-    public Card(Long id, String name, String theme, String classType, String rarity, Integer cost) {
+    public Card(Integer id, String name, String theme, String classType, String rarity, Integer cost) {
         setId(id);
         setName(name);
         setTheme(theme);
@@ -25,11 +25,11 @@ public class Card {
         setCost(cost);
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

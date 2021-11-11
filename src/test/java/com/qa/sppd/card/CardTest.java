@@ -12,7 +12,7 @@ public class CardTest {
 
     @BeforeEach
     public void setup() {
-        object = new Card(1L, "ManBearPig", "neutral", "tank", "legendary", 7);
+        object = new Card(1, "ManBearPig", "neutral", "tank", "legendary", 7);
     }
 
     @Test
