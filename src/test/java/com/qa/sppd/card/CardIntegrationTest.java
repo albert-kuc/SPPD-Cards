@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.ResultMatcher;
@@ -22,6 +23,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@Sql(scripts={"classpath:card-schema.sql", "classpath:card-data.sql"},
+        executionPhase=Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 public class CardIntegrationTest {
 
     @Autowired
@@ -38,7 +41,7 @@ public class CardIntegrationTest {
         RequestBuilder request = post("/card/create").contentType(MediaType.APPLICATION_JSON)
                 .content(requestBodyAsJSON);
 
-        Card responseBody = new Card(1, "The Amazingly Randy", "fantasy", "ranged", "epic", 4);
+        Card responseBody = new Card(2, "The Amazingly Randy", "fantasy", "ranged", "epic", 4);
         String responseBodyAsJSON = this.mapper.writeValueAsString(responseBody);
 
         ResultMatcher checkStatus = status().isCreated();
@@ -53,7 +56,7 @@ public class CardIntegrationTest {
 
         ResultMatcher checkStatus = status().isOk();
 
-        Card tempCard = new Card(1, "The Amazingly Randy", "fantasy", "ranged", "epic", 4);
+        Card tempCard = new Card(1, "Visitors", "sci-fi", "ranged", "rare", 3);
         List<Card> responseBody = List.of(tempCard);
 
         String responseBodyAsJSON = this.mapper.writeValueAsString(responseBody);
