@@ -17,9 +17,23 @@ The project is a Spring Boot App customised to emulate cards from m/obile game S
 In the most basic form, it allows to create, read, update and delete card objects from a database.
 This results in an application back-end, with cloud based database.
 
+Development stages are captured on Jira Board and accessible using 
+[this](https://albert-kuc.atlassian.net/jira/software/projects/SPPD/boards/1) link. 
 <hr>
 
 ## How to use
+
+### Card class 
+
+The intention of the Card class is to simulate existing game cards.<br>
+An instance of the class contains some typical game characteristics (variables):
+* name - character's name
+* theme - groups characters by similar outfits and abilities
+* classType - groups cards by similar abilities and attributes
+* rarity - represents how unique a card is
+* cost - number of energy points required to use a card during gameplay
+
+### API functionality
 
 The application runs on a local server with default port set to 8080.<br>
 It is capable of handling HTTP requests from a tool such as **Postman**.
@@ -36,7 +50,7 @@ The following CRUD functionality is allowed:
 
 ### Functionality explained
 
-In this section the functionality is explained in details and sample use is shown using **Postman**.
+In this section the functionality is explained in details and sample requests are shown using **Postman**.
 
 ![postman_panel.png](images/postman_panel.png)
 <p align = "center">
@@ -67,6 +81,12 @@ This request requires providing input data in specified format.
 }
 ```
 6. Select `SEND` button
+
+![img.png](images/postman_post.png)
+
+<p align = "center">
+Fig.2 - Postman POST request and output
+</p>
 
 <hr>
 
@@ -139,6 +159,35 @@ By default the card index is set to 1.
 4. Select `SEND` button
 
 <hr>
+
+## Test
+
+### Unit test
+
+Card class unit test checks functionality of class constructors, getters and setters.<br>
+Testing Card class after it was created allowed to fix simple bugs at the early stage of the project.
+
+Unit test coverage for the Card class is 81%, although overall coverage indicated by IDE is 33%.<br>
+It is the result of CardService and CardController classes being covered in 0%. 
+Both are tested by integration test.  
+
+![images/unit_test_w_coverage.png](images/unit_test_w_coverage.png)
+
+<p align = "center">
+Fig.3 - CardTest with coverage
+</p>
+
+### Integration test
+
+Card integration test checks correct CRUD functionality of API related to Card class.<br>
+Performing test highlighted issues in service functionality, e.g. different response than expected, 
+or lack of error handling for calling non-existing index from database.
+
+![images/integration_test_w_coverage.png](images/integration_test_w_coverage.png)
+
+<p align = "center">
+Fig.4 - CardIntegrationTest with coverage
+</p>
 
 ## TODO readme requirements 
 
