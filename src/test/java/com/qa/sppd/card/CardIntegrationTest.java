@@ -34,7 +34,7 @@ public class CardIntegrationTest {
     private ObjectMapper mapper;
 
     @Test
-    void Create_TEST() throws Exception {
+    void create_TEST() throws Exception {
         Card requestBody = new Card("The Amazingly Randy", "fantasy", "ranged", "epic", 4);
         String requestBodyAsJSON = this.mapper.writeValueAsString(requestBody);
 
@@ -51,7 +51,7 @@ public class CardIntegrationTest {
     }
 
     @Test
-    void GetAll_TEST() throws Exception {
+    void getAll_TEST() throws Exception {
         RequestBuilder request = get("/card/getAll");
 
         ResultMatcher checkStatus = status().isOk();
@@ -63,6 +63,18 @@ public class CardIntegrationTest {
         ResultMatcher checkBody = content().json(responseBodyAsJSON);
 
         this.mvc.perform(request).andExpect(checkStatus).andExpect(checkBody);
+    }
+
+    @Test
+    void getCardByIndex_TEST() throws Exception {
+        final String responseBody = this.mapper.writeValueAsString(
+                new Card(1,  "Visitors", "sci-fi", "ranged", "rare", 3));
+        this.mvc.perform(get("/card/get/1")).andExpect(status().isOk()).andExpect(content().json(responseBody));
+    }
+
+    @Test
+    void cardNotFound_TEST() throws Exception {
+
     }
 
 }

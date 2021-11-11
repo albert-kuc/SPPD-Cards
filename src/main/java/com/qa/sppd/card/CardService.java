@@ -24,7 +24,7 @@ public class CardService {
     }
 
     public Card getCardByIndex(Integer idx) {
-        return this.cardRepository.getById(idx);
+        return this.cardRepository.findById(idx).get();
     }
 
     public Card replaceCard(Integer idx, Card newCard) {
