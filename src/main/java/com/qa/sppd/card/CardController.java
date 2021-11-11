@@ -29,13 +29,21 @@ public class CardController {
     }
 
     @GetMapping(path="get/{idx}")
-    public ResponseEntity<Card> getCardByIndex(@PathVariable Integer idx) {
-        return ResponseEntity.ok(this.cardService.getCardByIndex(idx));
+    public ResponseEntity<?> getCardByIndex(@PathVariable Integer idx) {
+        try {
+            return ResponseEntity.ok(this.cardService.getCardByIndex(idx));
+        } catch (IndexOutOfBoundsException e) {
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PutMapping(path="replace/{idx}")
-    public ResponseEntity<Card> replaceCard(@PathVariable Integer idx, @RequestBody Card newCard) {
-        return new ResponseEntity<Card>(this.cardService.replaceCard(idx, newCard), HttpStatus.ACCEPTED);
+    public ResponseEntity<?> replaceCard(@PathVariable Integer idx, @RequestBody Card newCard) {
+        try {
+            return new ResponseEntity<Card>(this.cardService.replaceCard(idx, newCard), HttpStatus.ACCEPTED);
+        } catch (IndexOutOfBoundsException e) {
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @DeleteMapping(path="remove/{idx}")
