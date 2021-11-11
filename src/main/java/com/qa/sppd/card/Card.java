@@ -1,12 +1,21 @@
 package com.qa.sppd.card;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+@Entity
 public class Card {
 
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     private String name;
     private String theme;
     private String classType;
@@ -18,6 +27,14 @@ public class Card {
 
     public Card(Integer id, String name, String theme, String classType, String rarity, Integer cost) {
         setId(id);
+        setName(name);
+        setTheme(theme);
+        setClassType(classType);
+        setRarity(rarity);
+        setCost(cost);
+    }
+
+    public Card(String name, String theme, String classType, String rarity, Integer cost) {
         setName(name);
         setTheme(theme);
         setClassType(classType);
