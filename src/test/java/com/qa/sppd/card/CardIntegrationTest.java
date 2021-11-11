@@ -72,9 +72,4 @@ public class CardIntegrationTest {
         this.mvc.perform(get("/card/get/1")).andExpect(status().isOk()).andExpect(content().json(responseBody));
     }
 
-    @Test
-    void cardNotFound_TEST() throws Exception {
-
-    }
-
 }
