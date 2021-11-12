@@ -97,7 +97,22 @@ This request requires providing input data in specified format.
 2. Ensure `POST` request is selected from drop-down list
 3. Enter URL: http://localhost:8080/card/create
 4. To enter required input, select `Body` -> `raw` (ensure `JSON` type is selected from the drop-down list)
-5. Enter input body. Sample input: 
+5. Enter input body. <br>
+Note:<br>
+   * "theme" must be of: 
+   
+     "neutral", "adventures", "fantasy", "mystical", "sci-fi", "superheroes"
+   * "classType" must be of: 
+     
+     "fighter", "assassin", "ranged", "tank", "spell", "totem", "trap"
+   * "rarity" must be of: 
+   
+     "common", "rare", "epic", "legendary"
+   * "cost" must be in range 1 to 7 inclusive
+   
+   Otherwise, default values will be inserted
+
+   Sample input: 
 ```
 {
     "name": "Program Stan",
@@ -109,7 +124,7 @@ This request requires providing input data in specified format.
 ```
 6. Select `SEND` button
 
-![img.png](images/postman_post.png)
+![images/postman_post.png](images/postman_post.png)
 
 <p align = "center">
 Fig.2 - Postman POST request and output
@@ -128,6 +143,12 @@ To read all cards from database use **/card/getAll** extension.<br>
 3. Enter URL: http://localhost:8080/card/getAll
 4. Select `SEND` button
 
+![img.png](images/postman_get_all.png)
+
+<p align = "center">
+Fig.3 - Postman GET all data request with output
+</p>
+
 <hr>
 
 #### Get card
@@ -142,6 +163,12 @@ By default the card index is set to 1.
 2. Ensure `GET` request is selected from drop-down list
 3. Enter URL: http://localhost:8080/card/get/1
 4. Select `SEND` button
+
+![img.png](images/postman_get_idx.png)
+
+<p align = "center">
+Fig.4 - Postman GET data by index request with output
+</p>
 
 <hr>
 
@@ -170,6 +197,12 @@ This request requires providing input data in specified format.
 ```
 6. Select `SEND` button
 
+![img.png](images/postman_put.png)
+
+<p align = "center">
+Fig.5 - Postman PUT request with output
+</p>
+
 <hr>
 
 #### Delete card
@@ -185,7 +218,29 @@ By default the card index is set to 1.
 3. Enter URL: http://localhost:8080/card/remove/1
 4. Select `SEND` button
 
+![img.png](images/postman_delete.png)
+
+<p align = "center">
+Fig.6 - Postman DELETE request
+</p>
+
 <hr>
+
+## MySQL database
+
+Note: For MySQL configuration, refer to the Installation section above
+
+The application database is running on MySQL server, which means the data is stored outside of the app.
+This allows continuity by retrieving previously saved data instead of generating a new database on startup. 
+
+Below a sample data retrieved from card database.<br>
+Shows continuity to the above Postman exercises with missing id 2 and updated id 5. 
+
+![img.png](images/mysql_data.png)
+
+<p align = "center">
+Fig.7 - MySQL database content
+</p>
 
 ## Test
 
@@ -194,15 +249,10 @@ By default the card index is set to 1.
 Card class unit test checks functionality of class constructors, getters and setters.<br>
 Testing Card class after it was created allowed to fix simple bugs at the early stage of the project.
 
-Unit test coverage for the Card class is 81%, although overall coverage indicated by IDE is 33%.<br>
-It is the result of CardService and CardController classes being covered in 0%. 
-Both are tested by integration test.  
-
-![images/unit_test_w_coverage.png](images/unit_test_w_coverage.png)
-
-<p align = "center">
-Fig.3 - CardTest with coverage
-</p>
+Unit test coverage for the Card class is above the threshold, 
+although overall coverage indicated by IntelliJ on single CardTest execution is 33%.<br>
+IntelliJ indicates CardService and CardController classes being covered in 0%. 
+Both are not included in the unit test, as they are tested by the integration test.
 
 ### Integration test
 
@@ -210,10 +260,19 @@ Card integration test checks correct CRUD functionality of API related to Card c
 Performing test highlighted issues in service functionality, e.g. different response than expected, 
 or lack of error handling for calling non-existing index from database.
 
-![images/integration_test_w_coverage.png](images/integration_test_w_coverage.png)
+Integration test is referring to test properties profile and H2 database.
+It uses SQL schema to create a new table, and sample data input each time it is executed.
+In case the test file would point to the production database, it would clear all existing data.
+A separate profile and own database is to prevent from this event.
+
+### Test coverage
+
+The overall test coverage on execution of all test files
+
+![images/test_w_coverage.png](images/test_w_coverage.png)
 
 <p align = "center">
-Fig.4 - CardIntegrationTest with coverage
+Fig.8 - Card package test coverage
 </p>
 
 ## TODO readme requirements 
