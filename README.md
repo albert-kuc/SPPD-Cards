@@ -193,10 +193,34 @@ Fig.4 - CardIntegrationTest with coverage
 
 You are also expected to make a README.md file and to fill this README with information about this project. 
 It should contain the following headers:
-* Why are we doing this?
-* How I expected the challenge to go.
-* What went well? / What didn't go as planned?
-* Possible improvements for future revisions of the project.
+* **Why are we doing this?**<br>
+This project allows me to gain software development practice and experience. 
+Before this bootcamp I was programming using Python, based on what I have learned from online tutorials and books.
+The content varied around data science, ML and AI, but mostly felt non-practical to reproduce. 
+This Card class API development touches on various subjects and different layers of development.
+It is related not only to coding but also Agile practices.
+* **How I expected the challenge to go.**<br>
+I have expected to complete the challenge much faster, somewhere in the middle of the week.
+Equivalent project was presented during the course, so repeating it felt too easy. 
+This is the reason I didn't follow the exact development steps but rather experimented on my own.
+My pedantic nature also slowed my down as usual because I've focused on many bugs on the way instead of progressing.
+On the other hand I've experienced unexpected challenges on the way which required consultations, research and fixing.
+* **What went well? / What didn't go as planned?**<br>
+  * The project works ok in the very basic form, so that is according to plan.
+    On the other hand I expected to spend some time beyond the basic project scope, 
+    either with stretch goals or experimenting with my own ideas.<br>
+  * The first day I've spent on understanding how to use Jira with Git and GitHub. 
+    That was also unexpected at first but the result is satisfying.
+  * Both Integration Testing and Unit Testing highlighted some unexpected issues, which required extra time for review. 
+* **Possible improvements for future revisions of the project.**
+  * Few Card variables on object instantiation require input matching strings from predefined list. 
+    Those could be replaced with enum.
+  * Methods like getCardByIndex not only return card, but also handle request with non-existing index.
+    That seems like breaking the single responsibility rule and could be moved to another class.
+  * Some game cards have unique attributes which haven't been introduced yet, e.g. flying (not reachable by malee units), 
+    deathWish (triggers an event when killed), warcry (triggers an event when spawned), etc. 
+    Potentially that could be tackled using Liskov Substitution, 
+    but not sure would that means for API usage related to controller, service and repo. 
 * Screenshots showing your postman requests and the output from the API.
 * Screenshots of your database to prove that data is being persisted.
 * Screenshot of your test results, including coverage report.
