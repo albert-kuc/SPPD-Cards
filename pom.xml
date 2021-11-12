@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.qa</groupId>
-	<artifactId>main</artifactId>
+	<artifactId>sppd</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>SPPD Cards</name>
 	<description>South Park Phone Destroyer - Game Cards</description>
