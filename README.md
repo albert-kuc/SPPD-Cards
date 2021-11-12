@@ -21,6 +21,33 @@ Development stages are captured on Jira Board and accessible using
 [this](https://albert-kuc.atlassian.net/jira/software/projects/SPPD/boards/1) link. 
 <hr>
 
+## Installation
+
+By default, the application runs on `port:8080` and communicates to MySQL database on `port:3306`.
+
+Input data is stored into dedicated database `sppd_db`, which needs to exist prior to running the application.<br>
+Similarly `card` table is required.
+
+If needed, run the following SQL query inside MySQL to create a new database and table:
+
+```
+CREATE DATABASE sppd_db;
+
+USE sppd_db;
+
+CREATE TABLE `card`(
+    id INTEGER AUTO_INCREMENT,
+    name VARCHAR(255),
+    theme VARCHAR(255),
+    class_type VARCHAR(255),
+    rarity VARCHAR(255),
+    cost INTEGER,
+    PRIMARY KEY (id)
+);
+```
+
+
+
 ## How to use
 
 ### Card class 
