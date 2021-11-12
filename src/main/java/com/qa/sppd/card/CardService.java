@@ -1,12 +1,8 @@
 package com.qa.sppd.card;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
-import org.springframework.web.server.ServerErrorException;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,14 +16,36 @@ public class CardService {
         this.cardRepository = cardRepository;
     }
 
+    /**
+     * Saves (post) a Card into the database
+     * @param newCard
+     * JSON with parameters to create an instance of Card
+     * Requires providing name, theme, classType, rarity, cost
+     * @return
+     * a Card, with provided data
+     */
     public Card createCard(Card newCard) {
         return this.cardRepository.save(newCard);
     }
 
+    /**
+     * Gets all Cards data from the database
+     * @return
+     * a List with Cards data
+     */
     public List<Card> getAllCards() {
         return this.cardRepository.findAll();
     }
 
+    /**
+     * Gets a specific Card data from the database
+     * @param idx
+     * Card id to look-up in the database
+     * @return
+     * a Card with stored details
+     * @throws IndexOutOfBoundsException
+     * if id not found in the database
+     */
     public Card getCardByIndex(Integer idx) {
         Optional<Card> cardOptional = this.cardRepository.findById(idx);
 
@@ -38,6 +56,18 @@ public class CardService {
         }
     }
 
+    /**
+     * Puts new Card details (overwrites) to an existing Card id
+     * @param idx
+     * Card id to look-up in the database
+     * @param newCard
+     * JSON with parameters to create an instance of Card
+     * Requires providing name, theme, classType, rarity, cost
+     * @return
+     * a Card, with provided data
+     * @throws IndexOutOfBoundsException
+     * if id not found in the database
+     */
     public Card replaceCard(Integer idx, Card newCard) {
         Optional<Card> cardOptional = this.cardRepository.findById(idx);
 
@@ -58,6 +88,13 @@ public class CardService {
 
     }
 
+    /**
+     * Deletes instance with provided id from the database
+     * @param idx
+     * Card id to look-up in the database
+     * @return
+     * True if Card is removed, otherwise false
+     */
     public boolean removeCard(int idx) {
         this.cardRepository.deleteById(idx);
         return !this.cardRepository.existsById(idx);
