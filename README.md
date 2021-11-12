@@ -275,6 +275,16 @@ The overall test coverage on execution of all test files
 Fig.8 - Card package test coverage
 </p>
 
+## Output package
+
+The final result of this project at the current stage is a package file generated using Maven.<br>
+The file is accessible inside the main project repository.
+
+To execute the file directly from the terminal use the following:
+```
+java -jar sppd-0.0.1-SNAPSHOT.jar
+```
+
 ## TODO readme requirements 
 
 You are also expected to make a README.md file and to fill this README with information about this project. 
