@@ -97,7 +97,22 @@ This request requires providing input data in specified format.
 2. Ensure `POST` request is selected from drop-down list
 3. Enter URL: http://localhost:8080/card/create
 4. To enter required input, select `Body` -> `raw` (ensure `JSON` type is selected from the drop-down list)
-5. Enter input body. Sample input: 
+5. Enter input body. <br>
+Note:<br>
+   * "theme" must be of: 
+   
+     "neutral", "adventures", "fantasy", "mystical", "sci-fi", "superheroes"
+   * "classType" must be of: 
+     
+     "fighter", "assassin", "ranged", "tank", "spell", "totem", "trap"
+   * "rarity" must be of: 
+   
+     "common", "rare", "epic", "legendary"
+   * "cost" must be in range 1 to 7 inclusive
+   
+   Otherwise, default values will be inserted
+
+   Sample input: 
 ```
 {
     "name": "Program Stan",
@@ -194,15 +209,10 @@ By default the card index is set to 1.
 Card class unit test checks functionality of class constructors, getters and setters.<br>
 Testing Card class after it was created allowed to fix simple bugs at the early stage of the project.
 
-Unit test coverage for the Card class is 81%, although overall coverage indicated by IDE is 33%.<br>
-It is the result of CardService and CardController classes being covered in 0%. 
-Both are tested by integration test.  
-
-![images/unit_test_w_coverage.png](images/unit_test_w_coverage.png)
-
-<p align = "center">
-Fig.3 - CardTest with coverage
-</p>
+Unit test coverage for the Card class is above the threshold, 
+although overall coverage indicated by IntelliJ on single CardTest execution is 33%.<br>
+IntelliJ indicates CardService and CardController classes being covered in 0%. 
+Both are not included in the unit test, as they are tested by the integration test.
 
 ### Integration test
 
@@ -210,10 +220,14 @@ Card integration test checks correct CRUD functionality of API related to Card c
 Performing test highlighted issues in service functionality, e.g. different response than expected, 
 or lack of error handling for calling non-existing index from database.
 
-![images/integration_test_w_coverage.png](images/integration_test_w_coverage.png)
+### Test coverage
+
+The overall test coverage on execution of all test files
+
+![images/test_w_coverage.png](images/test_w_coverage.png)
 
 <p align = "center">
-Fig.4 - CardIntegrationTest with coverage
+Fig.3 - Card package test coverage
 </p>
 
 ## TODO readme requirements 
