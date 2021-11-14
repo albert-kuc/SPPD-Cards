@@ -1,5 +1,10 @@
 package com.qa.sppd.card;
 
+import com.qa.sppd.exceptions.InvalidClassTypeInputException;
+import com.qa.sppd.exceptions.InvalidCostInputException;
+import com.qa.sppd.exceptions.InvalidRarityInputException;
+import com.qa.sppd.exceptions.InvalidThemeInputException;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -65,11 +70,9 @@ public class Card {
     public void setTheme(String theme) {
         String[] availableThemesArray = {"neutral", "adventures", "fantasy", "mystical", "sci-fi", "superheroes"};
         List<String> availableThemesList = new ArrayList<>(Arrays.asList(availableThemesArray));
-        if (availableThemesList.contains(theme)) {
-            this.theme = theme;
-        } else {
-            this.theme = availableThemesArray[0];
-        }
+        if (!availableThemesList.contains(theme)) throw new InvalidThemeInputException(
+                "Theme value not recognized (" + theme + ")");
+        this.theme = theme;
     }
 
     public String getClassType() {
@@ -79,11 +82,9 @@ public class Card {
     public void setClassType(String classType) {
         String[] availableTypesArray = {"fighter", "assassin", "ranged", "tank", "spell", "totem", "trap"};
         List<String> availableTypesList = new ArrayList<>(Arrays.asList(availableTypesArray));
-        if (availableTypesList.contains(classType)) {
-            this.classType = classType;
-        } else {
-            this.classType = availableTypesArray[0];
-        }
+        if (!availableTypesList.contains(classType)) throw new InvalidClassTypeInputException(
+                "ClassType value not recognized (" + classType + ")");
+        this.classType = classType;
     }
 
     public String getRarity() {
@@ -93,12 +94,10 @@ public class Card {
     public void setRarity(String rarity) {
         String[] availableRarityArray = {"common", "rare", "epic", "legendary"};
         List<String> availableRarityList = new ArrayList<>(Arrays.asList(availableRarityArray));
-        if (availableRarityList.contains(rarity)) {
-            this.rarity = rarity;
-        } else {
-            this.rarity = availableRarityArray[0];
-        }
 
+        if (!availableRarityList.contains(rarity)) throw new InvalidRarityInputException(
+                "Rarity value not recognized (" + rarity + ")");
+        this.rarity = rarity;
     }
 
     public Integer getCost() {
@@ -106,11 +105,13 @@ public class Card {
     }
 
     public void setCost(Integer cost) {
-        if (cost > 0 && cost < 8) {
-            this.cost = cost;
-        } else {
-            this.cost = 0;
-        }
+        if (cost < 1 || cost > 7) throw new InvalidCostInputException(
+                "Cost value not in range(1, 7). Provided value: " + cost);
+//        if (cost > 0 && cost < 8) {
+        this.cost = cost;
+//        } else {
+//            this.cost = 0;
+//        }
     }
 
     @Override
