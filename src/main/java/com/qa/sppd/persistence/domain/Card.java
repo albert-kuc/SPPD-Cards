@@ -1,4 +1,4 @@
-package com.qa.sppd.card;
+package com.qa.sppd.persistence.domain;
 
 import com.qa.sppd.exceptions.InvalidClassTypeInputException;
 import com.qa.sppd.exceptions.InvalidCostInputException;
