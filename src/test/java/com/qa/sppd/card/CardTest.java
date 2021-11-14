@@ -4,6 +4,7 @@ import com.qa.sppd.exceptions.InvalidClassTypeInputException;
 import com.qa.sppd.exceptions.InvalidCostInputException;
 import com.qa.sppd.exceptions.InvalidRarityInputException;
 import com.qa.sppd.exceptions.InvalidThemeInputException;
+import com.qa.sppd.persistence.domain.Card;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

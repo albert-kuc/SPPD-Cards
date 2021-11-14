@@ -1,5 +1,7 @@
-package com.qa.sppd.card;
+package com.qa.sppd.service;
 
+import com.qa.sppd.persistence.domain.Card;
+import com.qa.sppd.persistence.repository.CardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

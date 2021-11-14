@@ -1,5 +1,7 @@
-package com.qa.sppd.card;
+package com.qa.sppd.rest.controller;
 
+import com.qa.sppd.service.CardService;
+import com.qa.sppd.persistence.domain.Card;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
