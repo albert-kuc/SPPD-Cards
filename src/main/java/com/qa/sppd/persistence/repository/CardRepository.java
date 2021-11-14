@@ -1,5 +1,6 @@
-package com.qa.sppd.card;
+package com.qa.sppd.persistence.repository;
 
+import com.qa.sppd.persistence.domain.Card;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

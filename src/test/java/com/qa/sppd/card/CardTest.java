@@ -1,5 +1,6 @@
 package com.qa.sppd.card;
 
+import com.qa.sppd.persistence.domain.Card;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

@@ -1,4 +1,4 @@
-package com.qa.sppd.card;
+package com.qa.sppd.persistence.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
