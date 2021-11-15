@@ -235,7 +235,7 @@ Fig.6 - Postman GET data with theme matching provided value
 
 #### Get cards by class type
 
-To read cards filtered by matching classType, use **/card/getByTheme/(targetClass)** extension.<br>
+To read cards filtered by matching classType, use **/card/getByClass/(targetClass)** extension.<br>
 (targetClass) needs to be replaced with value to lookup in database name column.
 
 ###### Using Postman:
@@ -345,7 +345,7 @@ A separate profile and own database is to prevent from this kind of event.
 
 The overall test coverage on execution of all test files
 
-![images/test_w_coverage.png](images/test_w_coverage.png)
+![img.png](images/test_w_coverage.png)
 
 <p align = "center">
 Fig.11 - Test coverage for Card package
