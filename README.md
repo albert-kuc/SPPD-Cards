@@ -78,7 +78,10 @@ The following CRUD functionality is allowed:
 
 * create card 
 * get all cards
-* get card 
+* get card by index
+* get card by name
+* get card by theme
+* get card by class type
 * update card 
 * delete card 
 
@@ -97,7 +100,7 @@ Fig.1 - Postman panel
 
 #### Create card
 
-To create a new card use **/card/create** extension.<br>
+To create a new card, use **/card/create** extension.<br>
 This request requires providing input data inside Postman Body in specified format.
 
 ###### Using Postman:
@@ -143,7 +146,7 @@ Fig.2 - Postman POST request and output
 
 #### Get all cards
 
-To read all cards from database use **/card/getAll** extension.<br>
+To read all cards from database, use **/card/getAll** extension.<br>
 
 ###### Using Postman:
 
@@ -160,9 +163,9 @@ Fig.3 - Postman GET all data request with output
 
 <hr>
 
-#### Get card
+#### Get card by index
 
-To read a specific card from database use **/card/get/(index)** extension.<br>
+To read a specific card from database, use **/card/get/(index)** extension.<br>
 (index) needs to be replaced with an Integer value referring to database id.
 
 ###### Using Postman:
@@ -180,9 +183,69 @@ Fig.4 - Postman GET data by index request with output
 
 <hr>
 
+#### Get card by name
+
+To read cards filtered by name, which contains input value, use **/card/getByName/(targetName)** extension.<br>
+(targetName) needs to be replaced with value to lookup in database name column.
+
+###### Using Postman:
+
+1. Create `New` -> `HTTP Request`
+2. Ensure `GET` request is selected from drop-down list
+3. Enter URL: http://localhost:8080/card/getByName/Stan
+4. Select `SEND` button
+
+![img.png](images/postman_get_name.png)
+
+<p align = "center">
+Fig.5 - Postman GET data with name that contains provided value
+</p>
+
+<hr>
+
+#### Get card by name
+
+To read cards filtered by matching theme, use **/card/getByTheme/(targetTheme)** extension.<br>
+(targetTheme) needs to be replaced with value to lookup in database name column.
+
+###### Using Postman:
+
+1. Create `New` -> `HTTP Request`
+2. Ensure `GET` request is selected from drop-down list
+3. Enter URL: http://localhost:8080/card/getByTheme/sci-fi
+4. Select `SEND` button
+
+![img.png](images/postman_get_theme.png)
+
+<p align = "center">
+Fig.6 - Postman GET data with theme matching provided value
+</p>
+
+<hr>
+
+#### Get card by class type
+
+To read cards filtered by matching classType, use **/card/getByTheme/(targetClass)** extension.<br>
+(targetClass) needs to be replaced with value to lookup in database name column.
+
+###### Using Postman:
+
+1. Create `New` -> `HTTP Request`
+2. Ensure `GET` request is selected from drop-down list
+3. Enter URL: http://localhost:8080/card/getByClass/fighter
+4. Select `SEND` button
+
+![img.png](images/postman_get_class.png)
+
+<p align = "center">
+Fig.7 - Postman GET data with classType matching provided value
+</p>
+
+<hr>
+
 #### Update card
 
-To update a specific card from database use **/card/replace/(index)** extension.<br>
+To update a specific card from database, use **/card/replace/(index)** extension.<br>
 (index) needs to be replaced with an Integer value referring to database id.<br>
 
 This request requires also providing input data inside Postman Body in specified format.
@@ -215,7 +278,7 @@ Fig.5 - Postman PUT request with output
 
 #### Delete card
 
-To delete a specific card from database use **/card/remove/(index)** extension.<br>
+To delete a specific card from database, use **/card/remove/(index)** extension.<br>
 (index) needs to be replaced with an Integer value referring to database id.
 
 ###### Using Postman:
