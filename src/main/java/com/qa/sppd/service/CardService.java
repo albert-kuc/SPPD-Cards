@@ -59,6 +59,39 @@ public class CardService {
     }
 
     /**
+     * Custom query to list all cards with name containing targetName
+     * @param targetName
+     * name value to lookup in Card.name
+     * @return
+     * List of cards matching the query
+     */
+    public List<Card> getCardByName(String targetName) {
+        return this.cardRepository.findCardByNameContaining(targetName);
+    }
+
+    /**
+     * Custom query to list all cards with Theme matching targetTheme
+     * @param targetTheme
+     * theme value to lookup in Card.theme
+     * @return
+     * List of cards matching the query
+     */
+    public List<Card> getCardByTheme(String targetTheme) {
+        return this.cardRepository.findByTheme(targetTheme);
+    }
+
+    /**
+     * Custom query to list all cards with ClassType the matching targetClassType
+     * @param targetClassType
+     * classType value to lookup in Card.classType
+     * @return
+     * List of cards matching the query
+     */
+    public List<Card> getCardByClassType(String targetClassType) {
+        return this.cardRepository.findByClassType(targetClassType);
+    }
+
+    /**
      * Puts new Card details (overwrites) to an existing Card id
      * @param idx
      * Card id to look-up in the database
