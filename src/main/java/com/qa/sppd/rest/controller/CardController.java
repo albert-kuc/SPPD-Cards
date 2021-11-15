@@ -39,6 +39,21 @@ public class CardController {
         }
     }
 
+    @GetMapping(path="getByName/{targetName}")
+    public List<Card> getCardByName(@PathVariable String targetName) {
+        return cardService.getCardByName(targetName);
+    }
+
+    @GetMapping(path="getByTheme/{targetTheme}")
+    public List<Card> getCardByTheme(@PathVariable String targetTheme) {
+        return cardService.getCardByTheme(targetTheme);
+    }
+
+    @GetMapping(path="getByClass/{targetClassType}")
+    public List<Card> getCardByClassType(@PathVariable String targetClassType) {
+        return cardService.getCardByClassType(targetClassType);
+    }
+
     @PutMapping(path="replace/{idx}")
     public ResponseEntity<?> replaceCard(@PathVariable Integer idx, @RequestBody Card newCard) {
         try {
