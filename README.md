@@ -24,12 +24,24 @@ Development stages are captured on Jira Board and accessible
 
 ## Installation
 
+To run the application first clone the repository 
+
+```
+git clone https://github.com/albertkuc/SPPD-Cards.git
+```
+
+Next open the location and execute the package file
+```
+java -jar sppd-0.0.2-SNAPSHOT.jar
+```
+
 By default, the application runs on localhost using `port:8080` and communicates to MySQL database on `port:3306`.
+The app expects the database to use the following: `username=root` and `password=pass`.
 
 Input data is stored into dedicated database `sppd_db`, which needs to exist prior to running the application.<br>
 Similarly `card` table inside the database is required.
 
-If needed, run the following SQL query inside MySQL to create a new database and table:
+If needed, run the following SQL query inside MySQL to create a required database and table:
 
 ```
 CREATE DATABASE sppd_db;
@@ -47,8 +59,6 @@ CREATE TABLE `card`(
 );
 ```
 
-
-
 ## How to use
 
 ### Card class 
@@ -59,14 +69,14 @@ List of real game cards is available to review through
 
 An instance of the class contains some typical game characteristics (variables):
 
-* name - character's name
-* theme - groups characters by similar outfits and abilities
-* classType - groups cards by similar abilities and attributes
-* rarity - represents how unique a card is
-* cost - number of energy points required to use a card during gameplay
+* `name` - character's name
+* `theme` - groups characters by similar outfits and abilities
+* `classType` - groups cards by similar abilities and attributes
+* `rarity` - represents how unique a card is
+* `cost` - number of energy points required to use a card during gameplay
 
 Note: <br>
-Variables: theme, classType, rarity, cost, all require specific input otherwise a default value would be applied.
+Variables: theme, classType, rarity, cost, all **require specific input** otherwise an error occurs.
 This is explained in the following chapters, with a sample card input is provided.
 
 ### API functionality
@@ -74,14 +84,14 @@ This is explained in the following chapters, with a sample card input is provide
 The application runs on a local server with default port (see the above Installation section).<br>
 It is capable of handling HTTP requests from a tool such as **Postman**.
 
-The following CRUD functionality is allowed:
+The following CRUD functionality is specified:
 
 * create card 
 * get all cards
 * get card by index
-* get card by name
-* get card by theme
-* get card by class type
+* get cards by name
+* get cards by theme
+* get cards by class type
 * update card 
 * delete card 
 
@@ -111,18 +121,18 @@ This request requires providing input data inside Postman Body in specified form
 4. Select `Body` -> `raw` (ensure `JSON` type is selected from the drop-down list)
 5. Enter input body. <br>
 Note:<br>
-   * "theme" must be selected from the following: 
+   * **theme** must be selected from the following: 
    
-     "neutral", "adventures", "fantasy", "mystical", "sci-fi", "superheroes"
-   * "classType" must be selected from the following: 
+     `neutral`, `adventures`, `fantasy`, `mystical`, `sci-fi`, `superheroes`
+   * **classType** must be selected from the following: 
      
-     "fighter", "assassin", "ranged", "tank", "spell", "totem", "trap"
-   * "rarity" must be selected from the following: 
+     `fighter`, `assassin`, `ranged`, `tank`, `spell`, `totem`, `trap`
+   * **rarity** must be selected from the following: 
    
-     "common", "rare", "epic", "legendary"
-   * "cost" must be in range 1 to 7 inclusive
+     `common`, `rare`, `epic`, `legendary`
+   * **cost** must be in range from `1` to `7` inclusive
    
-   Otherwise, default values will be inserted
+   Any value not meeting the above requirements will raise an exception.
 
    Sample input: 
 ```
@@ -183,7 +193,7 @@ Fig.4 - Postman GET data by index request with output
 
 <hr>
 
-#### Get card by name
+#### Get cards by name
 
 To read cards filtered by name, which contains input value, use **/card/getByName/(targetName)** extension.<br>
 (targetName) needs to be replaced with value to lookup in database name column.
@@ -203,7 +213,7 @@ Fig.5 - Postman GET data with name that contains provided value
 
 <hr>
 
-#### Get card by name
+#### Get cards by theme
 
 To read cards filtered by matching theme, use **/card/getByTheme/(targetTheme)** extension.<br>
 (targetTheme) needs to be replaced with value to lookup in database name column.
@@ -223,7 +233,7 @@ Fig.6 - Postman GET data with theme matching provided value
 
 <hr>
 
-#### Get card by class type
+#### Get cards by class type
 
 To read cards filtered by matching classType, use **/card/getByTheme/(targetClass)** extension.<br>
 (targetClass) needs to be replaced with value to lookup in database name column.
@@ -271,7 +281,7 @@ This request requires also providing input data inside Postman Body in specified
 ![img.png](images/postman_put.png)
 
 <p align = "center">
-Fig.5 - Postman PUT request with output
+Fig.8 - Postman PUT request with output
 </p>
 
 <hr>
@@ -291,7 +301,7 @@ To delete a specific card from database, use **/card/remove/(index)** extension.
 ![img.png](images/postman_delete.png)
 
 <p align = "center">
-Fig.6 - Postman DELETE request
+Fig.9 - Postman DELETE request
 </p>
 
 <hr>
@@ -310,7 +320,7 @@ Shows continuity to the above Postman exercises (missing id 2 and updated id 5).
 ![img.png](images/mysql_data.png)
 
 <p align = "center">
-Fig.7 - MySQL database content
+Fig.10 - MySQL database content
 </p>
 
 ## Test
@@ -320,11 +330,6 @@ Fig.7 - MySQL database content
 Card class unit test checks functionality of class constructors, getters and setters.<br>
 Testing Card class after it was created allowed to fix simple bugs at the early stage of the project.
 
-Unit test coverage for the Card class is above the threshold, 
-although overall coverage indicated by IntelliJ on single CardTest execution is 33%.<br>
-IntelliJ indicates CardService and CardController classes being covered in 0%. 
-Both are not included in the unit test, as they are tested by the integration test.
-
 ### Integration test
 
 Card integration test checks correct CRUD functionality of API related to Card class.<br>
@@ -333,8 +338,8 @@ or lack of error handling for calling non-existing index from database.
 
 Integration test is referring to test properties profile and H2 database.
 It uses SQL schema to create a new table, and sample data input each time it is executed.
-In case the test file would point to the production database, it would clear all existing data.
-A separate profile and own database is to prevent from this event.
+In a scenario where test file points to the production database, it would clear all existing data.
+A separate profile and own database is to prevent from this kind of event.
 
 ### Test coverage
 
@@ -343,7 +348,7 @@ The overall test coverage on execution of all test files
 ![images/test_w_coverage.png](images/test_w_coverage.png)
 
 <p align = "center">
-Fig.8 - Card package test coverage
+Fig.11 - Test coverage for Card package
 </p>
 
 ## Output package
@@ -353,7 +358,7 @@ The file is accessible inside the main project repository.
 
 To execute the file directly from the terminal use the following:
 ```
-java -jar sppd-0.0.1-SNAPSHOT.jar
+java -jar sppd-0.0.2-SNAPSHOT.jar
 ```
 
 
@@ -362,21 +367,19 @@ java -jar sppd-0.0.1-SNAPSHOT.jar
 The list below contains answers to the questionnaire provided with the project specification.
 
 * **Why are we doing this?**<br>
-This project allows me to gain software development practice and experience. 
-Before this bootcamp I was programming using Python, based on what I have learned from online tutorials and books.
+This project allows me to gain software development practice and gain programming experience. 
+Prior to this bootcamp I was programming using Python, based on what I have learned from online tutorials.
 The content varied around data science, ML and AI, but mostly felt non-practical to reproduce. 
 This Card class API development touches on various subjects and different layers of development.
 It is related not only to coding but also Agile practices.
 * **How I expected the challenge to go.**<br>
 I have expected to complete the challenge much faster. 
-My pedantic nature also slowed my down, because I've focused on many bugs on the way instead of going onwards.
-At the same time I managed to experiment with a few concepts.
-On the other hand I've experienced a few unexpected challenges on the way, 
+I've spent some time to explore certain concepts on the way instead of going forward.
+Additionally, I've experienced a few unexpected challenges on the way, 
 which required consultations, research and fixing.
 * **What went well? / What didn't go as planned?**<br>
   * The project works ok in the very basic form, so that is according to plan.
-    On the other hand I expected to spend some time beyond the basic project scope, 
-    either with stretch goals or experimenting with my own ideas.
+    I have expected to spend more time working on the stretch goals or experimenting with my own ideas.
     This will need to be done in some other time.
   * The first day I've spent on understanding how to use Jira with Git and GitHub. 
     That was unexpected at first, but led to satisfying results.
@@ -392,6 +395,7 @@ which required consultations, research and fixing.
     deathWish (triggers an event when killed), warcry (triggers an event when spawned), etc. 
     Potentially that could be tackled using Liskov Substitution, 
     but not sure yet how would that affect the API structure and functionality related to controller, service and repo.
+    This would be interesting to learn.
 * Screenshots showing your postman requests and the output from the API. (included above)
 * Screenshots of your database to prove that data is being persisted. (included above)
 * Screenshot of your test results, including coverage report. (included above)
