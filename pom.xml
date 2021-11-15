@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.qa</groupId>
 	<artifactId>sppd</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<name>SPPD Cards</name>
 	<description>South Park Phone Destroyer - Game Cards</description>
 	<properties>
