@@ -1,6 +1,7 @@
 package com.qa.sppd.card;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.qa.sppd.persistence.domain.Card;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -21,7 +22,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 @Sql(scripts={"classpath:card-schema.sql", "classpath:card-data.sql"},
         executionPhase=Sql.ExecutionPhase.BEFORE_TEST_METHOD)
